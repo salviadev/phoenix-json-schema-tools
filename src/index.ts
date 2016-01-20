@@ -1,2 +1,2 @@
 "use strict";
-export * from './lib/schema';
+export {checkSchema, indexesOfSchema} from './lib/schema';
