@@ -1,2 +1,4 @@
 "use strict";
-export {checkSchema, indexesOfSchema} from './lib/schema';
+
+export {phoenixJsonSchema} from './lib/schema';
+
