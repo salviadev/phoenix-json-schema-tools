@@ -7,6 +7,7 @@
   "dependencies": {},
   "devDependencies": {
     "del": "latest",
+    "dts-bundle": "^0.4.3",
     "gulp": "latest",
     "gulp-typescript": "latest",
     "merge2": "latest",
