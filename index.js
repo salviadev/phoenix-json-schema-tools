@@ -12,5 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, Promi
         step("next", void 0);
     });
 };
-var schema_1 = require('./lib/schema');
-exports.phoenixJsonSchema = schema_1.phoenixJsonSchema;
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+__export(require('./lib/schema'));

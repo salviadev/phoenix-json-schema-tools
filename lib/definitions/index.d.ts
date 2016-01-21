@@ -1,1 +1,1 @@
-export { phoenixJsonSchema } from './lib/schema';
+export * from './lib/schema';
