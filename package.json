@@ -7,7 +7,7 @@
   "dependencies": {},
   "devDependencies": {
     "del": "latest",
-    "dts-bundle": "^0.4.3",
+    "dts-bundle": "latest",
     "gulp": "latest",
     "gulp-typescript": "latest",
     "merge2": "latest",
@@ -23,7 +23,6 @@
     "definition": "lib/definitions/index.d.ts"
   },
   "scripts": {
-    "prepublish": "gulp",
     "test": "node_modules/.bin/mocha  test/**/*.test.js"
   }
 }
