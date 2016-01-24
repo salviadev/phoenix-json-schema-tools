@@ -8,20 +8,59 @@ export async function checkSchema(schema: any): Promise<void> {
 
 }
 
-function _enumCompositions(schema: any, path: string, cb: (prefix: string, Object: any) => void): void {
-    cb(path, schema);
+function _enumCompositions(schema: any, path: string, isArray: boolean, value: any, cb: (prefix: string, cs: any, value: any, array: boolean) => boolean): void {
+    if (!cb(path, schema, value, isArray)) return;
     Object.keys(schema.properties).forEach(function(name) {
         var prop = schema.properties[name];
         if (prop.type === "object") {
             let cp = path ? path + '.' + name : name;
-            _enumCompositions(prop, cp, cb);
+            _enumCompositions(prop, cp, false, value ? value[name] : null cb);
         } else if (prop.type === "array" && prop.items.type === 'object') {
             let cp = path ? path + '.' + name : name;
-            _enumCompositions(prop.items, cp, cb);
+            _enumCompositions(prop.items, cp, true, value ? value[name] : null, cb);
         }
     });
 }
+function validateDate(scheama: any, value: any, propName: string, options: any) {
 
+}
+
+function validateDateTime(scheama: any, value: any, propName: string, options: any) {
+
+}
+
+
+function _checkObj(value: any, schema: any, options): void {
+    let ps = Object.keys(schema.properties);
+    ps.forEach(function(pn) {
+        let ps = schema.properties[pn];
+        switch (ps.type) {
+            case "date":
+                validateDate(ps, value, pn, options);
+                break
+            case "datetime":
+                validateDateTime(ps, value, pn, options);
+                break
+
+        }
+    });
+
+}
+
+export function validateObject(value: any, schema: any, options: any): void {
+    _enumCompositions(schema, '', false, value, function(prefix: string, cs: any, cv: any, array: boolean): boolean {
+        if (cv === null || cv === undefined) return false;
+        if (array) {
+            cv.forEach(function(item) {
+                _checkObj(item, schema, options);
+            });
+        } else {
+            _checkObj(cv, schema, options);
+        }
+        return true;
+    });
+
+}
 
 export function indexesOfSchema(schema: any, addTextIndex: boolean): any[] {
     var res = [];
@@ -30,7 +69,7 @@ export function indexesOfSchema(schema: any, addTextIndex: boolean): any[] {
         res.push({ unique: true, fields: schema.primaryKey });
     }
     // add Indexes
-    _enumCompositions(schema, '', function(prefix, cs) {
+    _enumCompositions(schema, '', false, null, function(prefix: string, cs: any, cv: any, array: boolean): boolean {
         if (cs.indexes) {
             cs.indexes.forEach(function(ii) {
                 let fields: string = ii.fields;
@@ -42,16 +81,18 @@ export function indexesOfSchema(schema: any, addTextIndex: boolean): any[] {
                 res.push({ unique: !!ii.unique, fields: fields });
             });
         }
+        return true;
     });
     if (addTextIndex) {
         var textFields = [];
-        _enumCompositions(schema, '', function(prefix, cs) {
+        _enumCompositions(schema, '', false, null, function(prefix: string, cs: any, cv: any, array: boolean): boolean {
             Object.keys(cs.properties).forEach(function(name) {
                 var prop = cs.properties[name];
                 if (prop.type === "string" && prop.capabilities && prop.capabilities.indexOf('searchable') >= 0) {
                     textFields.push(prefix ? prefix + '.' + name : name);
                 }
             });
+            return true;
         });
         if (textFields.length)
             res.push({ text: true, fields: textFields.join(',') });
