@@ -14,7 +14,7 @@ function _enumCompositions(schema: any, path: string, isArray: boolean, value: a
         var prop = schema.properties[name];
         if (prop.type === "object") {
             let cp = path ? path + '.' + name : name;
-            _enumCompositions(prop, cp, false, value ? value[name] : null cb);
+            _enumCompositions(prop, cp, false, value ? value[name] : null, cb);
         } else if (prop.type === "array" && prop.items.type === 'object') {
             let cp = path ? path + '.' + name : name;
             _enumCompositions(prop.items, cp, true, value ? value[name] : null, cb);
