@@ -1,3 +1,5 @@
 .vscode
 .tscache
+/utils
 /node_modules
+

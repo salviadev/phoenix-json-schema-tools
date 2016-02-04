@@ -62,7 +62,7 @@ export function validateObject(value: any, schema: any, options: any): void {
 
 }
 
-export function indexesOfSchema(schema: any, addTextIndex: boolean): any[] {
+export function indexesOfSchema(schema: any, addTextIndex: boolean): {text?:boolean, unique?:boolean, fields: string}[] {
     var res = [];
     // add primary key
     if (schema.primaryKey) {

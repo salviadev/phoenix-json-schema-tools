@@ -7,6 +7,10 @@ declare module 'phoenix-json-schema-tools' {
 declare module 'phoenix-json-schema-tools/lib/schema' {
     export function checkSchema(schema: any): Promise<void>;
     export function validateObject(value: any, schema: any, options: any): void;
-    export function indexesOfSchema(schema: any, addTextIndex: boolean): any[];
+    export function indexesOfSchema(schema: any, addTextIndex: boolean): {
+        text?: boolean;
+        unique?: boolean;
+        fields: string;
+    }[];
 }
 

@@ -10,6 +10,7 @@
     "dts-bundle": "latest",
     "gulp": "latest",
     "gulp-typescript": "latest",
+    "run-sequence": "latest",
     "merge2": "latest",
     "mocha": "latest",
     "typescript": "next"
