@@ -9,13 +9,13 @@ var runSequence = require('run-sequence');
 
 gulp.task('clean', function () {
     return del([
-    'lib/',
-    './index.js'
-  ]);    
-   
+        'lib/',
+        './index.js'
+    ]);
+
 });
 
-gulp.task('definition-bundle', function(){    
+gulp.task('definition-bundle', function () {
     dts.bundle({
         name: 'phoenix-json-schema-tools',
         main: 'lib/definitions/index.d.ts',
@@ -29,15 +29,15 @@ gulp.task('definition-bundle', function(){
 gulp.task('ts', ['clean'], function () {
     var tsProject = ts.createProject(path.resolve('./src/tsconfig.json'));
     var tsResult = gulp.src(path.resolve('./src/**/*.ts')).pipe(ts(tsProject));
-    return merge([ 
+    return merge([
         tsResult.dts.pipe(gulp.dest('lib/definitions')),
         tsResult.js.pipe(gulp.dest(path.resolve('./')))
-    ]);    
-   
+    ]);
+
 });
 
-gulp.task('build', function(done) {
-  runSequence('ts', 'definition-bundle', done);
+gulp.task('build', function (done) {
+    runSequence('ts', 'definition-bundle', done);
 });
 
 gulp.task('default', ['build']);
