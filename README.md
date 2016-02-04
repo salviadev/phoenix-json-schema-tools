@@ -6,16 +6,16 @@ This package contains:
 
 
 
-###Compile
+### Install
 
-// Install typescript globally 
 `npm install -g gulp typescript`
 
-// install packages
 `npm install`
 
-// build
+### Build
+
 `gulp`
 
-//test
+### Test
+
 `npm test`
