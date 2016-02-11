@@ -2,8 +2,8 @@
 
 This package contains:
 
-`indexesOfSchema` - extract from jsonschema the list of indexes
-
+`schema.indexesOfSchema(schema: any): any[]` - extract from jsonschema the list of indexes
+`schema.checkSchema(schema: any): boolean` - check if valid schema
 
 
 ### Install
