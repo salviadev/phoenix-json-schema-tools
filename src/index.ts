@@ -1,8 +1,9 @@
 "use strict";
 
-import  {indexesOfSchema, checkSchema, enumProps}  from './lib/schema';
+import  {indexesOfSchema, checkSchema, enumProps, typeOfProperty}  from './lib/schema';
 export var schema = {
     indexesOfSchema: indexesOfSchema,
     checkSchema: checkSchema,
-    enumProps: enumProps
+    enumProps: enumProps,
+    typeOfProperty: typeOfProperty
 }

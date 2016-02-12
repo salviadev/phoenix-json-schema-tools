@@ -44,6 +44,27 @@ function _type(schema): string {
 
 }
 
+function _path2schema(path: string, schema: any): any {
+    let segments = (path || 'cs').split('.');
+    let cs = schema;
+    for (let segment of segments) {
+        if (cs.type === 'array')
+            cs = cs.items;
+        cs = cs.properties ? cs.properties[segment] : null;
+        if (!cs) return null;
+    }
+    return cs;
+}
+
+export function typeOfProperty(path: string, schema: any): string {
+    let cs = _path2schema(path, schema);
+    if (cs) {
+        return _type(cs);
+    }
+    return '';
+}
+
+
 export function enumProps(value: any, schema: any, cb: (propName: string, propType: string, schema, value: any) => void): void {
     _enumCompositions(schema, '', false, value, function(prefix: string, cs: any, cv: any, array: boolean): boolean {
         if (cv === null || cv === undefined) return false;
