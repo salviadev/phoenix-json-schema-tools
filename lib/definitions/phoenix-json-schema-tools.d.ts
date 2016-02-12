@@ -8,6 +8,7 @@ declare module 'phoenix-json-schema-tools' {
             fields: string;
         }[];
         checkSchema: (schema: any) => Promise<void>;
+        enumProps: (value: any, schema: any, cb: (propName: string, propType: string, schema: any, value: any) => void) => void;
     };
 }
 

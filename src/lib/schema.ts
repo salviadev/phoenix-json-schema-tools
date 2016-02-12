@@ -21,48 +21,50 @@ function _enumCompositions(schema: any, path: string, isArray: boolean, value: a
         }
     });
 }
-function validateDate(scheama: any, value: any, propName: string, options: any) {
+function validateDate(scheama: any, value: any, propName: string) {
 
 }
 
-function validateDateTime(scheama: any, value: any, propName: string, options: any) {
+function validateDateTime(scheama: any, value: any, propName: string) {
 
 }
 
 
-function _checkObj(value: any, schema: any, options): void {
-    let ps = Object.keys(schema.properties);
-    ps.forEach(function(pn) {
-        let ps = schema.properties[pn];
-        switch (ps.type) {
-            case "date":
-                validateDate(ps, value, pn, options);
-                break
-            case "datetime":
-                validateDateTime(ps, value, pn, options);
-                break
 
-        }
-    });
+
+function _type(schema): string {
+    let type = schema.type;
+    if (type === "string") {
+        if (schema.format === "date")
+            type = "date";
+        else if (schema.format === "datetime")
+            schema = "datetime"
+    }
+    return type;
 
 }
 
-export function validateObject(value: any, schema: any, options: any): void {
+export function enumProps(value: any, schema: any, cb: (propName: string, propType: string, schema, value: any) => void): void {
     _enumCompositions(schema, '', false, value, function(prefix: string, cs: any, cv: any, array: boolean): boolean {
         if (cv === null || cv === undefined) return false;
-        if (array) {
-            cv.forEach(function(item) {
-                _checkObj(item, schema, options);
-            });
-        } else {
-            _checkObj(cv, schema, options);
-        }
-        return true;
-    });
+        if (cs && cs.properties) {
+            // enum all properties
+            Object.keys(cs.properties).forEach(function(pn) {
+                let cps = cs.properties[pn];
+                if (array)
+                    cv.forEach(elementitem => {
+                        cb(pn, _type(cps), cps, cv);
+                    });
+                else
+                    cb(pn, _type(cps), cps, cv);
 
+            });
+        }
+    });
 }
 
-export function indexesOfSchema(schema: any, addTextIndex: boolean): {text?:boolean, unique?:boolean, fields: string}[] {
+
+export function indexesOfSchema(schema: any, addTextIndex: boolean): { text?: boolean, unique?: boolean, fields: string }[] {
     var res = [];
     // add primary key
     if (schema.primaryKey) {

@@ -15,5 +15,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, Promi
 var schema_1 = require('./lib/schema');
 exports.schema = {
     indexesOfSchema: schema_1.indexesOfSchema,
-    checkSchema: schema_1.checkSchema
+    checkSchema: schema_1.checkSchema,
+    enumProps: schema_1.enumProps
 };
