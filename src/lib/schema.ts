@@ -57,7 +57,7 @@ function _path2schema(path: string, schema: any): any {
 }
 
 
-export function primaryKeyFields(schema: any): string {
+export function primaryKeyFields(schema: any): string[] {
      return schema.primaryKey.split(',').map(function(item) {
          return item.trim();
      });
