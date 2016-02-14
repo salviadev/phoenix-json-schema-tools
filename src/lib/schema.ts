@@ -56,6 +56,13 @@ function _path2schema(path: string, schema: any): any {
     return cs;
 }
 
+
+export function primaryKeyFields(schema: any): string {
+     return schema.primaryKey.split(',').map(function(item) {
+         return item.trim();
+     });
+}
+
 export function typeOfProperty(path: string, schema: any): string {
     let cs = _path2schema(path, schema);
     if (cs) {
