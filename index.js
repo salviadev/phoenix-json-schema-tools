@@ -18,5 +18,6 @@ exports.schema = {
     checkSchema: schema_1.checkSchema,
     enumProps: schema_1.enumProps,
     typeOfProperty: schema_1.typeOfProperty,
-    pkFields: schema_1.primaryKeyFields
+    pkFields: schema_1.primaryKeyFields,
+    fields: schema_1.fields
 };

@@ -58,9 +58,9 @@ function _path2schema(path: string, schema: any): any {
 
 
 export function primaryKeyFields(schema: any): string[] {
-     return schema.primaryKey.split(',').map(function(item) {
-         return item.trim();
-     });
+    return schema.primaryKey.split(',').map(function(item) {
+        return item.trim();
+    });
 }
 
 export function typeOfProperty(path: string, schema: any): string {
@@ -69,6 +69,20 @@ export function typeOfProperty(path: string, schema: any): string {
         return _type(cs);
     }
     return '';
+}
+
+export function fields(schema: any): string[] {
+    let res = [];
+    _enumCompositions(schema, '', false, null, function(prefix, cs: any, cv: any, array) {
+        if (cs && cs.properties) {
+            // enum all properties
+            Object.keys(cs.properties).forEach(function(pn) {
+                res.push(prefix ? prefix + '.' + pn : pn);
+            });
+        }
+        return true;
+    });
+    return res;
 }
 
 
