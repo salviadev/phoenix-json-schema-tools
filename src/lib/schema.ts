@@ -38,7 +38,7 @@ function _type(schema): string {
         if (schema.format === "date")
             type = "date";
         else if (schema.format === "datetime")
-            schema = "datetime"
+            type = "datetime"
     }
     return type;
 
