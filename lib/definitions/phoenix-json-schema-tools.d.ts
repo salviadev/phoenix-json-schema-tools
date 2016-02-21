@@ -12,6 +12,7 @@ declare module 'phoenix-json-schema-tools' {
         typeOfProperty: (path: string, schema: any) => string;
         pkFields: (schema: any) => string[];
         fields: (schema: any) => string[];
+        fieldsByType: (schema: any, type: string) => string[];
     };
 }
 

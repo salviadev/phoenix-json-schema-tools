@@ -19,5 +19,6 @@ exports.schema = {
     enumProps: schema_1.enumProps,
     typeOfProperty: schema_1.typeOfProperty,
     pkFields: schema_1.primaryKeyFields,
-    fields: schema_1.fields
+    fields: schema_1.fields,
+    fieldsByType: schema_1.fieldsByType
 };

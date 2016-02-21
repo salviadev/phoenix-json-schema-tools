@@ -85,6 +85,23 @@ export function fields(schema: any): string[] {
     return res;
 }
 
+export function fieldsByType(schema: any, type: string): string[] {
+    let res = [];
+    _enumCompositions(schema, '', false, null, function(prefix, cs: any, cv: any, array) {
+        if (cs && cs.properties) {
+            // enum all properties
+            Object.keys(cs.properties).forEach(function(pn) {
+                let currentProp = cs.properties[pn];
+                if (_type(currentProp) === type)
+                    res.push(prefix ? prefix + '.' + pn : pn);
+            });
+        }
+        return true;
+    });
+    return res;
+}
+
+
 
 export function enumProps(value: any, schema: any, cb: (propName: string, propType: string, schema, value: any) => void): void {
     _enumCompositions(schema, '', false, value, function(prefix: string, cs: any, cv: any, array: boolean): boolean {
