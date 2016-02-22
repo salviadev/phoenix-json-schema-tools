@@ -73,6 +73,8 @@ export function typeOfProperty(path: string, schema: any): string {
 
 export function fields(schema: any): string[] {
     let res = [];
+    if (schema.multiTenant)
+        res.push('tenantId')
     _enumCompositions(schema, '', false, null, function(prefix, cs: any, cv: any, array) {
         if (cs && cs.properties) {
             // enum all properties
