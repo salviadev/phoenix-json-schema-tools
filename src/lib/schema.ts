@@ -75,7 +75,6 @@ export function fields(schema: any): string[] {
     let res = [];
     if (schema.multiTenant)
         res.push('tenantId');
-     console.log('schema.multiTenant = ' + schema.multiTenant);           
     _enumCompositions(schema, '', false, null, function(prefix, cs: any, cv: any, array) {
         if (cs && cs.properties) {
             // enum all properties
@@ -85,7 +84,7 @@ export function fields(schema: any): string[] {
         }
         return true;
     });
-    console.log(res);
+
     return res;
 }
 
